@@ -28,7 +28,7 @@
     <pre id="api-response"></pre>
 
     <script>
-      var video = document.querySelector("#videoElement");
+      var video = document.querySelector('#videoElement');
 
       if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({ video: true })
@@ -36,40 +36,58 @@
             video.srcObject = stream;
           })
           .catch(function (err0r) {
-            console.log("Something went wrong!");
+            console.log('Something went wrong!');
           });
       }
     </script>
 
     <script>
+      var scale = 0.1;
       var captureImage = function () {
-        var canvas = document.createElement("canvas");
+        var canvas = document.createElement('canvas');
         canvas.width = video.videoWidth * scale;
         canvas.height = video.videoHeight * scale;
         canvas.getContext('2d')
           .drawImage(video, 0, 0, canvas.width, canvas.height);
 
-        var img = document.createElement("img");
-        img.src = canvas.toDataURL();
+        // var img = document.createElement('img');
+        // img.src = canvas.toDataURL();
 
+        var blobBin = atob(canvas.toDataURL().split(',')[1]);
+        var array = [];
+        for (var i = 0; i < blobBin.length; i++) {
+          array.push(blobBin.charCodeAt(i));
+        }
+        var file = new Blob([new Uint8Array(array)], { type: 'image/png' });
+
+        console.log(file);
+        analyseImage(file);
       };
     </script>
 
     <script>
-      var imageUrl = 'https://previews.123rf.com/images/butsaya/butsaya1507/butsaya150700092/42263264-jeune-femme-en-asie-avec-le-visage-souriant-isol%C3%A9-sur-fond-blanc-.jpg';
+      // var imageUrl = 'https://previews.123rf.com/images/butsaya/butsaya1507/butsaya150700092/42263264-jeune-femme-en-asie-avec-le-visage-souriant-isol%C3%A9-sur-fond-blanc-.jpg';
 
-      fetch(`https://q1fk66kgra.execute-api.eu-west-1.amazonaws.com/staging/?image_url=${imageUrl}`, {
-        method: 'POST',
-        // mode: 'no-cors',
-        cache: 'no-cache',
-      })
-        .then(function (response) {
-          return response.json();
+      var analyseImage = function (image_file) {
+        // image_base64 = image_base64.replace('data:image/png;base64,', '')
+        var formdata = new FormData();
+        formdata.append('image_file', image_file);
+
+        fetch(`http://localhost:5000`, {
+          method: 'POST',
+          cache: 'no-cache',
+          data: formdata,
+          processData: false,
+          contentType: false,
         })
-        .then(function (json) {
-          console.log(json);
-          document.querySelector('#api-response').innerHTML = JSON.stringify(json, null, 2);
-        });
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (json) {
+            console.log(json);
+            document.querySelector('#api-response').innerHTML = JSON.stringify(json, null, 2);
+          });
+      };
     </script>
   </body>
 </html>
