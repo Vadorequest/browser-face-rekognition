@@ -12,16 +12,15 @@
 
       fetch(`https://q1fk66kgra.execute-api.eu-west-1.amazonaws.com/staging/?image_url=${imageUrl}`, {
         method: 'POST',
-        mode: 'no-cors',
+        // mode: 'no-cors',
         cache: 'no-cache',
       })
         .then(function (response) {
-          console.log(response);
           return response.json();
         })
         .then(function (json) {
           console.log(json);
-          document.querySelector('#api-response').innerHTML = json;
+          document.querySelector('#api-response').innerHTML = JSON.stringify(json, null, 2);
         });
     </script>
   </body>
