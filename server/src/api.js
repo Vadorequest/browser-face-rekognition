@@ -1,9 +1,10 @@
 export const handler = async (event, context) => {
+  const imageUrl = event.queryStringParameters.image_url;
   const credentials = require('../api-credentials.json');
   var params = {
     api_key: credentials.API_KEY,
     api_secret: credentials.API_SECRET,
-    image_url: 'https://previews.123rf.com/images/butsaya/butsaya1507/butsaya150700092/42263264-jeune-femme-en-asie-avec-le-visage-souriant-isol%C3%A9-sur-fond-blanc-.jpg',
+    image_url: imageUrl,
     return_attributes: 'smiling',
   };
 
