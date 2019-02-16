@@ -1,0 +1,51 @@
+{
+  "name": "server-face-rekognition",
+  "jest": {
+    "verbose": true,
+    "testEnvironment": "node"
+  },
+  "scripts": {
+    "start": "ENV=${ENV:-development}; ENV=$ENV sls offline start",
+    "test": "ENV=${ENV:-development}; ENV=$ENV sls dotenv && ENV=$ENV IS_OFFLINE=true jest --watch ",
+    "test:all": "ENV=${ENV:-development}; ENV=$ENV IS_OFFLINE=true jest --coverage --runInBand",
+    "sls:check": "ENV=${ENV:-staging}; ENV=$ENV sls print",
+    "deploy": "ENV=${ENV:-staging}; ENV=$ENV sls deploy",
+    "logs:status": "ENV=${ENV:-staging}; ENV=$ENV sls logs -f status -t",
+    "list:process:5001": "sudo lsof -i tcp:5001"
+  },
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-core": "6.26.3",
+    "babel-loader": "7.1.5",
+    "babel-plugin-source-map-support": "1.0.0",
+    "babel-plugin-transform-runtime": "6.23.0",
+    "babel-preset-env": "1.7.0",
+    "babel-preset-stage-3": "6.24.1",
+    "git-revision-webpack-plugin": "3.0.3",
+    "serverless": "1.30.3",
+    "serverless-domain-manager": "2.6.0",
+    "serverless-offline": "3.25.8",
+    "serverless-plugin-aws-alerts": "1.2.4",
+    "serverless-sentry": "1.2.0",
+    "serverless-webpack": "5.2.0",
+    "webpack": "4.16.5",
+    "webpack-node-externals": "1.7.2"
+  },
+  "dependencies": {
+    "@jimdo/serverless-dotenv": "1.0.0",
+    "@sentry/webpack-plugin": "1.6.1",
+    "babel-runtime": "6.26.0",
+    "dotenv": "6.0.0",
+    "jest": "23.5.0",
+    "lodash.includes": "4.3.0",
+    "lodash.map": "4.6.0",
+    "lodash.orderby": "4.6.0",
+    "moment": "2.22.2",
+    "raven": "2.6.4",
+    "serverless-sentry-lib": "1.1.2",
+    "source-map-support": "0.4.18",
+    "uuid": "3.3.2",
+    "uuid-validate": "0.0.3",
+    "yargs": "12.0.2"
+  }
+}

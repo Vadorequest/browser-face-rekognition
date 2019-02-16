@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>POC face rekognition</title>
+  </head>
+  <body>
+    <pre id="api-response"></pre>
+
+    <script>
+      var params = {
+        api_key: '-VFJ81TOAT-xx9PsKZCO5BVJPHAnZn6z',
+        api_secret: 'Rj_KxRNHDIOQlbN0wGX2pIbsc53XBDL9',
+        image_url: 'https://previews.123rf.com/images/butsaya/butsaya1507/butsaya150700092/42263264-jeune-femme-en-asie-avec-le-visage-souriant-isol%C3%A9-sur-fond-blanc-.jpg',
+        return_attributes: 'smiling',
+      };
+
+      const searchParams = Object.keys(params).map((key) => {
+        return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
+      }).join('&');
+
+      fetch('https://api-us.faceplusplus.com/facepp/v3/detect', {
+        method: 'POST',
+        mode: 'no-cors',
+        cache: 'no-cache',
+        body: searchParams,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        },
+      })
+        .then(function (response) {
+          console.log(response)
+          return response.json();
+        })
+        .then(function (json) {
+          console.log(json)
+          document.querySelector('#api-response').innerHTML = json;
+        })
+    </script>
+  </body>
+</html>
