@@ -3,9 +3,57 @@
   <head>
     <meta charset="UTF-8">
     <title>POC face rekognition</title>
+
+    <style>
+      #container {
+        margin: 0px auto;
+        width: 500px;
+        height: 375px;
+        border: 10px #333 solid;
+      }
+
+      #videoElement {
+        width: 500px;
+        height: 375px;
+        background-color: #666;
+      }
+    </style>
   </head>
   <body>
+    <div id="container">
+      <video autoplay="true" id="videoElement">
+
+      </video>
+    </div>
     <pre id="api-response"></pre>
+
+    <script>
+      var video = document.querySelector("#videoElement");
+
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(function (stream) {
+            video.srcObject = stream;
+          })
+          .catch(function (err0r) {
+            console.log("Something went wrong!");
+          });
+      }
+    </script>
+
+    <script>
+      var captureImage = function () {
+        var canvas = document.createElement("canvas");
+        canvas.width = video.videoWidth * scale;
+        canvas.height = video.videoHeight * scale;
+        canvas.getContext('2d')
+          .drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        var img = document.createElement("img");
+        img.src = canvas.toDataURL();
+
+      };
+    </script>
 
     <script>
       var imageUrl = 'https://previews.123rf.com/images/butsaya/butsaya1507/butsaya150700092/42263264-jeune-femme-en-asie-avec-le-visage-souriant-isol%C3%A9-sur-fond-blanc-.jpg';
