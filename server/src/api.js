@@ -1,3 +1,5 @@
+const fetch = require('node-fetch');
+
 export const handler = async (event, context) => {
   const imageUrl = event.queryStringParameters.image_url;
   const credentials = require('../api-credentials.json');
